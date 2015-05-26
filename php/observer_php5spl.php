@@ -14,12 +14,11 @@ class Pattern
 {
     static function process()
     {
-
-        $chat   = Chat::get();
-        $vasya  = new User('Вася');
-        $lena    = new User('Лена');
-        $ruslan  = new User('Руслан');
-        $olga  = new User('Оля');
+        $chat       = Chat::get();
+        $vasya      = new User('Вася');
+        $lena       = new User('Лена');
+        $ruslan     = new User('Руслан');
+        $olga       = new User('Оля');
 
         //add users
         $chat->attach($vasya);
@@ -31,10 +30,14 @@ class Pattern
         $chat->detach($olga);
 
         $vasya->say('Всем привет!');
-        $ruslan->say('Привет!Как у вас дела?');
-        //=====output======
-        //Allen is reading breakout news USA break down! (Newyork Times)
-        //Jim is reading breakout news USA break down! (Newyork Times)
+        $lena->say('Пока всем!');
+
+        $chat->detach($lena);
+
+        $ruslan->say('Пока!');
+
+        $chat->detach($ruslan);
+        $chat->detach($vasya);
     }
 }
 /**
