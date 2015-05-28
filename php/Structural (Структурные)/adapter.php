@@ -43,37 +43,36 @@
  * а вызовы его методов преобразуются в вызовы методов включённого класса.
  */
 
-class Search {
+class Hello {
 
-    private $text;
-    private $word;
- 
-    function __construct($text,$word) {
-        $this->text = $text;
-        $this->word = $word;
+    private $_name;
+    private $_hello = 'Здравствуйте';
+
+    function __construct($name) {
+        $this->_name = $name;
     }
  
-    function searchWordInText() {
-        return $this->text;
+    function getName() {
+        return $this->_name;
     }
  
-    function getWord() {
-        return $this->word;
-    }
-}
- 
-class SearchAdapter {
-    private $aSearch;
- 
-    function __construct(Search $aSearch) {
-        $this->aSearch = $aSearch;
-    }
- 
-    function searchWordInText() {
-        return 'Эти слова '.$this->aSearch->getWord().' найдены в тексте '.$this->aSearch->searchWordInText();
+    function getHello() {
+        return $this->_hello;
     }
 }
  
-$search         = new Search("текст", "слова");
-$searchAdapter  = new SearchAdapter($search);
-echo $searchAdapter->searchWordInText();
+class HelloAdapter {
+    private $aHellow;
+ 
+    function __construct(Hello $aSearch) {
+        $this->aHellow = $aSearch;
+    }
+ 
+    function getFullHellow() {
+        return $this->aHellow->getHello() . ', ' . $this->aHellow->getName() . '! Мы рады Вас видеть!' . "\n";
+    }
+}
+ 
+$hellow         = new Hello("Руслан");
+$hellowAdapter  = new HelloAdapter($hellow);
+echo $hellowAdapter->getFullHellow();
