@@ -7,7 +7,35 @@
 	 * на основе которой реализованы другие шаблоны - композиция (также называемая агрегацией), 
 	 * примеси (mixins) и аспекты (aspects).
 	 */ 
-	
+
+	class Pattern
+	{
+		static function process()
+		{
+			$obj1 = new Employee("Танасийчук Степан", "web студия");
+			$obj2 = new Employee("Кусый Назар", "web студия");
+			$obj3 = new Employee("Сорока Орест", "web студия");
+
+			$objList = new EmployeeList();
+			$objList->add($obj1);
+			$objList->add($obj2);
+			$objList->add($obj3);
+
+
+			print_r($objList);
+			echo "-----------\r\n";
+
+			$index = $objList->getIndexByName("Кусый Назар");
+			$emploee = $objList->getEmployer($index);
+			$emploee->setName('Безкусый Назар');
+			print_r($emploee);
+			echo "-----------\r\n";
+
+			$objList->setEmployer($index, $emploee);
+			print_r($objList);
+		}
+	}
+
 	/**
 	 *  класс для хранения данных о сотруднике
 	 */
@@ -136,25 +164,4 @@
 			return $result;
 		}
 	}
-
-	$obj1 = new Employee("Танасийчук Степан", "web студия");
-	$obj2 = new Employee("Кусый Назар", "web студия");
-	$obj3 = new Employee("Сорока Орест", "web студия");
-	
-	$objList = new EmployeeList();
-	$objList->add($obj1);
-	$objList->add($obj2);
-	$objList->add($obj3);
-	
-
-	print_r($objList);
-	echo "-----------\r\n";
-	
-	$index = $objList->getIndexByName("Кусый Назар");
-	$emploee = $objList->getEmployer($index);
-	$emploee->setName('Безкусый Назар');
-	print_r($emploee);
-	echo "-----------\r\n";
-	
-	$objList->setEmployer($index, $emploee);
-	print_r($objList);
+	Pattern::process();
