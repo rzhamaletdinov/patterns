@@ -42,12 +42,11 @@
 
             $test_server->add(new Leaf("SoftLaunchGame"));
 
-            $dev_server->add(new Leaf("Huyak-huyak"));
+            $dev_server->add(new Leaf("CodeIterations"));
 
             $client = new Client($pull);
 
-            $client->printOperation1();
-            $client->printOperation2();
+            $client->printAll();
         }
     }
     /**
@@ -61,7 +60,6 @@
      */
     abstract class AComponent
     {
-
         public $customPropertyName;
 
         public $customPropertyDescription;
@@ -95,7 +93,7 @@
          */
         abstract function createIterator();
 
-        public function operation1()
+        public function printAComponent()
         {
             throw new \Exception("Unsupported operation");
         }
@@ -120,10 +118,9 @@
             return new NullIterator();
         }
 
-        public function operation1()
+        public function printAComponent()
         {
             echo ("\n \t\t {$this->customPropertyName}");
-//            echo ("\n I'am leaf {$this->customPropertyName}, i don't want to do operation 1. {$this->customPropertyDescription}");
         }
     }
 
@@ -196,7 +193,7 @@
             return ($this->components[$int]);
         }
 
-        public function operation1()
+        public function printAComponent()
         {
             echo "\n\n $this->customPropertyName $this->customPropertyDescription";
             echo "\n --------------------------------";
@@ -204,7 +201,7 @@
             $iterator = $this->components->getIterator();
             while ($iterator->valid()) {
                 $component = $iterator->current();
-                $component->operation1();
+                $component->printAComponent();
                 $iterator->next();
             }
         }
@@ -227,7 +224,7 @@
     class CompositeIterator implements IPhpLikeIterator
     {
 
-        public $stack = array();
+        public $stack       = array();
 
         /**
          * @param \ArrayIterator $componentsIterator
@@ -331,23 +328,10 @@
             $this->topItem = $topItem;
         }
 
-        public function printOperation1()
+        public function printAll()
         {
-            $this->topItem->operation1();
-        }
-
-        public function printOperation2()
-        {
-            echo "\n\n\n";
-            $iterator = $this->topItem->createIterator();
-            while ($iterator->valid()) {
-                /** @var $component AComponent */
-                $component = $iterator->current();
-                if (strstr($component->customPropertyName, 'leaf1')) {
-                    echo ("\n I'm Client, I found leaf {$component->customPropertyName}, I'll just leave it here (for my 'first-leafs' tea collection). {$component->customPropertyDescription}");
-                }
-                $iterator->next();
-            }
+            $this->topItem->printAComponent();
+            echo "\n";
         }
     }
     Pattern::process();
