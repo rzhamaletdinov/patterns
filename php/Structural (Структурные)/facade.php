@@ -55,7 +55,6 @@ class Memory
         print "RAM: loading " . $position . "\n";
         if($data)
             print "RAM: ready!\n";
-
     }
 }
 
